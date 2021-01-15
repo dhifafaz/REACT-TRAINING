@@ -9,7 +9,13 @@ const person = (props) => {
 //            width : '450px'
 //        }
 //  };
+
+    const rand = Math.random();
+
+  
     return (
+        
+
         <div className = {classes.Person} >
             <p onClick={props.click}> I'm {props.name} and I am {props.age} years old ! </p>
             <p>{props.children}</p>  
