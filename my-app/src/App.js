@@ -1,6 +1,5 @@
-import './App.css';
+import classes from './App.module.css';
 import React, { Component } from 'react';
-//import Radium, {StyleRoot} from 'radium';
 import Person from './Person/Person';
 
 class App extends Component {
@@ -48,17 +47,8 @@ class App extends Component {
   //always  use bind coz its more efficient
   render (){
     // inline style using style as the name of the object
-    const style = {
-      backgroundColor : 'black',
-      color : 'white',
-      font : 'inherit',
-      border : '1px solid blue',
-      padding : '8px',
-      cursor : 'pointer',
-      
-    };
-
     let persons = null ;
+    let btnClass = '';
 
     if (this.state.showData) {
       persons = (
@@ -73,26 +63,27 @@ class App extends Component {
             })}
           </div>
       );
+      btnClass = classes.Red;
       
     }
      
-    let classes = [];
+    const assignedClasses = [];
     if (this.state.persons.length <= 2) {
-      classes.push('red'); // classes will be ['red']
+      assignedClasses.push(classes.red); // classes will be ['red']
     }
     if (this.state.persons.length <= 1) {
-      classes.push('bold'); // classes will be ['red','bold']
+      assignedClasses.push(classes.bold); // classes will be ['red','bold']
     }
 
 
 
     return (
       
-      <div className="App">
+      <div className = {classes.App}>
         <h1>Hai, My name is Dhifaf. I'm the maker of the app!</h1>
-        <p className = { classes.join(' ') }>This is actually work guyss!!</p>
+        <p className = { assignedClasses.join(' ') }>This is actually work guyss!!</p>
         <button 
-          style = {style}
+          className = {btnClass}
           onClick={this.togglePersonHandler}>Toggle Data</button>
         {persons}
       </div>
