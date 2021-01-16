@@ -10,9 +10,6 @@ const person = (props) => {
 //        }
 //  };
 
-    const rand = Math.random();
-
-  
     return (
         
 
