@@ -21,6 +21,13 @@ constructor(props){
   componentDidMount(){
     console.log('[Person.js] Inside componentDidMount()');
   }
+  componentWillReceiveProps(nextProps){
+      console.log('[UPDATE Person.js] Inside componentWillReceiveProps', nextProps);
+  }
+  shouldComponentUpdate(nextProps, nextState){
+    console.log('[UPDATE Person.js] Inside shouldComponentUpdate',nextProps,nextState);
+    return nextProps.persons !== this.props.persons ;
+  }
     render (){
         console.log('[Person.js] Inside render()');
         return (
