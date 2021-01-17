@@ -2,13 +2,36 @@ import classes from './App.module.css';
 import React, { Component } from 'react';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
+
 class App extends Component {
+  constructor(props){
+    super(props);
+    console.log('[App.js] Inside Constructor ', props);
+    this.state = {
+      persons : [
+        { id :'sdjs', name : 'Dhifaf', age : '19'},
+        { id :'aaejf',name : 'Stephanie', age : '18'},
+        { id :'dadf', name : 'Poop', age : '20'}
+      ], 
+      otherState : 'some bla bla',
+      showData: false
+    };
+  }
+
+  componentWillMount(){
+    console.log('[App.js] Inside componentWillMount()');
+  }
+
+  componentDidMount(){
+    console.log('[App.js] Inside componentDidMount()');
+  }
+
   state = {
     persons : [
       { id :'sdjs', name : 'Dhifaf', age : '19'},
       { id :'aaejf',name : 'Stephanie', age : '18'},
       { id :'dadf', name : 'Poop', age : '20'}
-    ],
+    ], 
     otherState : 'some bla bla',
     showData: false
   } // state manage from inside component
@@ -46,11 +69,12 @@ class App extends Component {
 
   //always  use bind coz its more efficient
   render (){
+    console.log('[App.js] Inside render()');
     // inline style using style as the name of the object
     let persons = null ;
     
     if (this.state.showData) {
-      persons =<Persons 
+      persons = <Persons 
           persons = {this.state.persons}
           clicked = {this.delData}
           changed = {this.nameChangedHandler} />;
@@ -61,6 +85,7 @@ class App extends Component {
       
       <div className = {classes.App}>
         <Cockpit
+          appTitle = {this.props.title}
           showData={this.state.showData}
           persons={this.state.persons}
           clicked={this.togglePersonHandler}/>
