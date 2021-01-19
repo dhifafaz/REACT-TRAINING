@@ -2,6 +2,8 @@ import classes from './App.module.css';
 import React, { PureComponent } from 'react';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
+import Aux from '../hoc/Aux';
+import withClass from '../hoc/withClass'
 
 class App extends PureComponent {
   constructor(props){
@@ -9,12 +11,13 @@ class App extends PureComponent {
     console.log('[App.js] Inside Constructor ', props);
     this.state = {
       persons : [
-        { id :'sdjs', name : 'Dhifaf', age : '19'},
-        { id :'aaejf',name : 'Stephanie', age : '18'},
-        { id :'dadf', name : 'Poop', age : '20'}
+        { id :'sdjs', name : 'Dhifaf', age : 19},
+        { id :'aaejf',name : 'Stephanie', age : 18},
+        { id :'dadf', name : 'Poop', age : 20}
       ], 
       otherState : 'some bla bla',
-      showData: false
+      showData: false,
+      toggleClicked : 0
     };
   }
 
@@ -39,9 +42,9 @@ class App extends PureComponent {
 
   state = {
     persons : [
-      { id :'sdjs', name : 'Dhifaf', age : '19'},
-      { id :'aaejf',name : 'Stephanie', age : '18'},
-      { id :'dadf', name : 'Poop', age : '20'}
+      { id :'sdjs', name : 'Dhifaf', age : 19},
+      { id :'aaejf',name : 'Stephanie', age : 18},
+      { id :'dadf', name : 'Poop', age : 20}
     ], 
     otherState : 'some bla bla',
     showData: false
@@ -75,7 +78,12 @@ class App extends PureComponent {
 
   togglePersonHandler = () => {
     const doesShow = this.state.showData;
-    this.setState({showData: !doesShow });
+    this.setState((prevState, props) =>  {
+      return {
+        showData: !doesShow , 
+        toggleClicked : this.state.toggleClicked + 1
+      }
+    });
   }
 
   //always  use bind coz its more efficient
@@ -93,8 +101,7 @@ class App extends PureComponent {
     }
      
     return (
-      
-      <div className = {classes.App}>
+        <Aux>
         <button onClick={()=> {this.setState({showData: true})}}>Show Person</button>
         <Cockpit
           appTitle = {this.props.title}
@@ -102,7 +109,7 @@ class App extends PureComponent {
           persons={this.state.persons}
           clicked={this.togglePersonHandler}/>
         {persons}
-      </div>
+        </Aux>
       
     );
     //equivalent dengan yang bawah dengan catatan kalau komponen sedikit 
@@ -110,4 +117,4 @@ class App extends PureComponent {
   }
 }
 
-export default App;
+export default withClass(App, classes.App);
